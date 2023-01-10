@@ -9,11 +9,9 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	
     let disposable = vscode.languages.registerCodeLensProvider({ language: '*' }, {
         provideCodeLenses: (document) => {
             let codeLenses = [];
-              //console.log(event);
               let text = document.getText();
               let lines = text.split("\n");
               let i = 0;
@@ -60,12 +58,9 @@ function activate(context) {
         }
       });
 
-
-
-
-    vscode.workspace.onDidChangeTextDocument(event => {
-          context.subscriptions.push(disposable);
-    })
+   //vscode.workspace.onDidChangeTextDocument(event => {
+   //    context.subscriptions.push(disposable);
+   //})
       
 
 

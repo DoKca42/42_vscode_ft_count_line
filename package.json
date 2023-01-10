@@ -1,12 +1,13 @@
 {
   "publisher": "DoKca",
   "name": "42-ft-count-line",
-  "displayName": "42_ft_count_line",
+  "displayName": "42 ft count line",
   "description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.74.0"
   },
+  "icon": "img/icon.png",
   "categories": [
     "Other"
   ],

@@ -1,4 +1,5 @@
 {
+  "publisher": "DoKca",
   "name": "42-ft-count-line",
   "displayName": "42_ft_count_line",
   "description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
@@ -34,5 +35,10 @@
     "mocha": "^10.1.0",
     "typescript": "^4.9.3",
     "@vscode/test-electron": "^2.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoKca42/42_vscode_ft_count_line.git"
+  },
+  "homepage": "https://github.com/DoKca42/42_vscode_ft_count_line/blob/master/README.md"
 }

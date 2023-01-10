@@ -3,11 +3,11 @@
   "name": "42-ft-count-line",
   "displayName": "42 ft count line",
   "description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.74.0"
   },
-  "icon": "img/icon.png",
+  "icon": "img/icon.jpg",
   "categories": [
     "Other"
   ],

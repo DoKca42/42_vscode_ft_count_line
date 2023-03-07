@@ -1,75 +1,67 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-
-/**
- * @param {vscode.ExtensionContext} context
- */
 function activate(context) {
-    let disposable = vscode.languages.registerCodeLensProvider({ language: '*' }, {
-        provideCodeLenses: (document) => {
-            let codeLenses = [];
-              let text = document.getText();
-              let lines = text.split("\n");
-              let i = 0;
-              while (i < lines.length) {
-              let line = lines[i];
-              let res = line.match(/[a-zA-Z_][a-zA-Z_0-9]*\(.*\)/);
-              if (res) 
-              {
-                  if (res.index + res[0].length == line.length) {
-                    i++;
-                    line = lines[i];
-                    if (line == "{") 
-                    {
-                        let bracket = 1;
-                        let size = 0;
-                        i++;
-                        while (bracket != 0 && i < lines.length) 
-                        {
-                            line = lines[i];
-                            bracket += (line.match(/{/g) || []).length;
-                            bracket -= (line.match(/}/g) || []).length;
-                            size++;
-                            i++;
-                        }
+	let disposable = vscode.languages.registerCodeLensProvider({ language: '*' }, {
+		provideCodeLenses: (document) => {
+			let codeLenses = [];
+			let txt = document.getText();
+			let lines = txt.split(/\r\n|\r|\n/);
+			let i = 0;
+			let allResRegex = txt.matchAll(/[a-zA-Z_][a-zA-Z_0-9]*\((?:[^()]|\((?:[^()]|\((?:[^()]+|\([^()]*\))*\))*\))*\)/g);
+			for (let resRegex of allResRegex)
+			{
+				if (txt[resRegex.index + resRegex[0].length] == '\n' && txt[resRegex.index + resRegex[0].length + 1] == '{')
+				{
+					let i = resRegex.index + resRegex[0].length + 2;
+					let brackets = 1;
+					while (brackets != 0 && i < txt.length) {
+						if (txt[i] == '{') {
+						    brackets += 1;
+						} else if (txt[i] == '}') {
+						    brackets -= 1;
+						}
+						i += 1;
+					}
+					let size = 0;
+					let start = resRegex.index + resRegex[0].length + 3;
+					let end = i - 1;
+					while (start < end) {
+					    if (txt[start] == '\n') {
+					        size += 1;
+					    }
+					    start += 1;
+					}
+					let pose = 0;
+					let line_nb = 0;
+					while (line_nb < lines.length && !(pose <= end && end <= pose + lines[line_nb].length)) {
+					    pose += lines[line_nb].length + 1;
+					    line_nb++;
+					}
+					let text = "";
+					if (size > 25) {
+					    text =  `⚠⚠ 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ` + (size)+` ⚠⚠`;
+					}else{
+					    text =  '—— 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ' + (size)+' ——';
+					}
 
-                        let text = ""
-                        if (size - 1 > 25){
-                            text =  `⚠⚠ 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ` + (size - 1)+` ⚠⚠`;
-                        }else{
-                            text =  '—— 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ' + (size - 1)+' ——';
-                        }
+					let codeLens = new vscode.CodeLens(new vscode.Range(line_nb + 1, 0, line_nb + 1, 0), {
+					    title: text,
+					    command: '42-ft-count-line.FtCtLn'
+					    });
+					    codeLenses.push(codeLens);
+				}
+			}
+			return codeLenses;
+		}
+	});
 
-                        let codeLens = new vscode.CodeLens(new vscode.Range(i, 0, i, 0), {
-                            title: text,
-                            command: '42-ft-count-line.sayHello'
-                            });
-                            codeLenses.push(codeLens);
-                    }
-                  }
-              }
-              i++;
-              }
-            return codeLenses;
-        }
-      });
-
-   //vscode.workspace.onDidChangeTextDocument(event => {
-   //    context.subscriptions.push(disposable);
-   //})
-      
-
-
-    //context.subscriptions.push(vscode.commands.registerCommand('42-ft-count-line.sayHello', () => {}));
+	context.subscriptions.push(vscode.commands.registerCommand('42-ft-count-line.FtCtLn', () => {
+        vscode.window.showInformationMessage('42 FT-COUNT-LINE 😎');
+    }));
 }
 
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
+    activate,
+    deactivate
 }

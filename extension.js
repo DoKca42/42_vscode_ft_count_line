@@ -6,7 +6,7 @@ function activate(context) {
 			let txt = document.getText();
 			let lines = txt.split(/\r\n|\r|\n/);
 			let i = 0;
-			let allResRegex = txt.matchAll(/[a-zA-Z_][a-zA-Z_0-9]*\((?:[^()]|\((?:[^()]|\((?:[^()]+|\([^()]*\))*\))*\))*\)/g);
+			let allResRegex = txt.matchAll(/[a-zA-Z_][a-zA-Z_0-9]*\((?:[^();]|\((?:[^();]+|\([^();]*\))*\))*(?:\)|(?=;))/g);
 			for (let resRegex of allResRegex)
 			{
 				if (txt[resRegex.index + resRegex[0].length] == '\n' && txt[resRegex.index + resRegex[0].length + 1] == '{')

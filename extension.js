@@ -1,4 +1,44 @@
 const vscode = require('vscode');
+
+function RegexFunctions(txt) {
+    const out = [];
+    let i = 0;
+    while (i < txt.length) 
+    {
+        let start = 0;
+        let temp = 0;
+        let parentheses = 0;
+        while (i < txt.length && !txt[i].match(/[a-zA-Z0-9_]/)){
+            i++;
+        }
+        start = i;
+        while (i < txt.length && txt[i].match(/[a-zA-Z0-9_]/)) {
+            i++;
+        }
+        if (i < txt.length && txt[i] === '(')
+        {
+            parentheses = 1;
+            i++;
+            temp = i;
+            while (i < txt.length && parentheses > 0 && txt[i] !== ';')
+            {
+				if (txt[i] === '(') {
+					parentheses++;
+				}
+				if (txt[i] === ')') {
+					parentheses--;
+				}
+				i++;
+            }
+            if (i < txt.length && parentheses === 0) {
+            	out.push([start, i, txt.substring(start, i)]);
+            }
+            i = temp;
+        } 
+    }
+    return out;
+ }
+
 function activate(context) {
 	let disposable = vscode.languages.registerCodeLensProvider({ language: '*' }, {
 		provideCodeLenses: (document) => {
@@ -6,12 +46,12 @@ function activate(context) {
 			let txt = document.getText();
 			let lines = txt.split(/\r\n|\r|\n/);
 			let i = 0;
-			let allResRegex = txt.matchAll(/[a-zA-Z_][a-zA-Z_0-9]*\((?:[^();]|\((?:[^();]+|\([^();]*\))*\))*(?:\)|(?=;))/g);
+			let allResRegex = RegexFunctions(txt);
 			for (let resRegex of allResRegex)
 			{
-				if (txt[resRegex.index + resRegex[0].length] == '\n' && txt[resRegex.index + resRegex[0].length + 1] == '{')
+				if (txt[resRegex[1]] == '\n' && txt[resRegex[1] + 1] == '{')
 				{
-					let i = resRegex.index + resRegex[0].length + 2;
+					let i = resRegex[1] + 2;
 					let brackets = 1;
 					while (brackets != 0 && i < txt.length) {
 						if (txt[i] == '{') {
@@ -22,7 +62,7 @@ function activate(context) {
 						i += 1;
 					}
 					let size = 0;
-					let start = resRegex.index + resRegex[0].length + 3;
+					let start = resRegex[1] + 3;
 					let end = i - 1;
 					while (start < end) {
 					    if (txt[start] == '\n') {

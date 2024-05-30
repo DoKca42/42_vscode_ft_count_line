@@ -1,6 +1,30 @@
 const vscode = require('vscode');
 
-function RegexFunctions(txt) {
+/**
+ * normalizeLineEndings(text)
+ *
+ * Normalize line endings to Unix format (LF).
+ * Because Unix uses LF and Windows uses CRLF.
+ *
+ * @param {String} txt - The text to normalize.
+ * @returns {String} The text with normalized line endings in LF format.
+ */
+function normalizeLineEndings(txt)
+{
+    return txt.replace(/\r\n/g, '\n');
+}
+
+/**
+ * RegexFunctions(txt)
+ *
+ * Identifies functions present in a file.
+ *
+ * @param {String} txt - The text to analyze.
+ * @returns {Array} A list of functions found, each represented as an array 
+ *                  with the start index, end index, and the function name.
+ */
+function RegexFunctions(txt)
+{
     const out = [];
     let i = 0;
     while (i < txt.length) 
@@ -37,13 +61,13 @@ function RegexFunctions(txt) {
         } 
     }
     return out;
- }
+}
 
 function activate(context) {
 	let disposable = vscode.languages.registerCodeLensProvider({ language: '*' }, {
 		provideCodeLenses: (document) => {
 			let codeLenses = [];
-			let txt = document.getText();
+			let txt = normalizeLineEndings(document.getText());
 			let lines = txt.split(/\r\n|\r|\n/);
 			let i = 0;
 			let allResRegex = RegexFunctions(txt);

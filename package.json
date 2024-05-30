@@ -17,8 +17,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "42-ft-count-line.FtCtLn",
-      "title": "42 FT-COUNT-LINE"
+      "command": "42-ft-count-line.FtCtLnA",
+      "title": "42 FT-COUNT-LINE 2"
     }]
   },
   "scripts": {

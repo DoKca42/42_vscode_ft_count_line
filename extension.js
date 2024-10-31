@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const config = vscode.workspace.getConfiguration('42-ft-count-line');
 
 /**
  * normalizeLineEndings(text)
@@ -168,10 +169,11 @@ function activate(context)
                         line_nb++;
                     }
 					let text = "";
-					if (size > 25)
-					    text =  `⚠⚠ 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ` + (size)+` ⚠⚠`;
+					let maxLines = config.get("maxLines", 25);
+					if (size <= maxLines || maxLines == 0)
+					    text =  '—— 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ' + (size) + ' ——';
 					else
-					    text =  '—— 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ' + (size)+' ——';
+					    text =  `⚠⚠ 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ` + (size) + ` ⚠⚠`;
 
 					let codeLens = new vscode.CodeLens(new vscode.Range(line_nb + 1, 0, line_nb + 1, 0), {
 					    title: text,

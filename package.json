@@ -3,7 +3,7 @@
   "name": "42-ft-count-line",
   "displayName": "42 ft count line",
   "description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
-  "version": "0.4.1",
+  "version": "0.4.4",
   "engines": {
     "vscode": "^1.68.1"
   },
@@ -19,7 +19,19 @@
     "commands": [{
       "command": "42-ft-count-line.FtCtLnA",
       "title": "42 FT-COUNT-LINE 2"
-    }]
+    }],
+    "configuration": {
+      "type": "object",
+      "title": "42 ft count line Settings",
+      "properties": {
+        "42-ft-count-line.maxLines": {
+          "type": "integer",
+          "default": 25,
+          "minimum": 0,
+          "description": "The maximum allowed amount of lines. 0 will disable."
+        }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",

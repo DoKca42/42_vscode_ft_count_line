@@ -1,45 +1,64 @@
 {
-  "publisher": "DoKca",
-  "name": "42-ft-count-line",
-  "displayName": "42 ft count line",
-  "description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
-  "version": "0.4.1",
-  "engines": {
-    "vscode": "^1.68.1"
-  },
-  "icon": "img/icon.jpg",
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "main": "./extension.js",
-  "contributes": {
-    "commands": [{
-      "command": "42-ft-count-line.FtCtLnA",
-      "title": "42 FT-COUNT-LINE 2"
-    }]
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.68.1",
-    "@types/glob": "^8.0.0",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "eslint": "^8.28.0",
-    "glob": "^8.0.3",
-    "mocha": "^10.1.0",
-    "typescript": "^4.9.3",
-    "@vscode/test-electron": "^2.2.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DoKca42/42_vscode_ft_count_line.git"
-  },
-  "homepage": "https://github.com/DoKca42/42_vscode_ft_count_line/blob/master/README.md"
-}
+	"publisher": "DoKca",
+	"name": "42-ft-count-line",
+	"displayName": "42 ft count line",
+	"description": "It is an extension for students of 42 allowing to count the number of lines of a function according to the 'norminette' standard",
+	"version": "0.4.1",
+	"engines": {
+	  "vscode": "^1.68.1"
+	},
+	"icon": "img/icon.jpg",
+	"categories": [
+	  "Other"
+	],
+	"activationEvents": [
+	  "onStartupFinished"
+	],
+	"main": "./extension.js",
+	"contributes": {
+	  "commands": [
+		{
+		  "command": "42-ft-count-line.FtCtLnA",
+		  "title": "42 FT-COUNT-LINE 2"
+		}
+	  ],
+	  "configuration": {
+		"type": "object",
+		"title": "42 ft count line Settings",
+		"properties": {
+		  "42-ft-count-line.colorBelowMax": {
+			"type": "string",
+			"default": "gray",
+			"description": "Color for functions with lines below the maximum."
+		  },
+		  "42-ft-count-line.colorAboveMax": {
+			"type": "string",
+			"default": "red",
+			"description": "Color for functions exceeding the maximum number of lines."
+		  }
+		}
+	  }
+	},
+	"scripts": {
+	  "lint": "eslint .",
+	  "pretest": "npm run lint",
+	  "test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+	  "@types/vscode": "^1.68.1",
+	  "@types/glob": "^8.0.0",
+	  "@types/mocha": "^10.0.1",
+	  "@types/node": "16.x",
+	  "eslint": "^8.28.0",
+	  "glob": "^8.0.3",
+	  "mocha": "^10.1.0",
+	  "typescript": "^4.9.3",
+	  "@vscode/test-electron": "^2.2.0"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/DoKca42/42_vscode_ft_count_line.git"
+	},
+	"homepage": "https://github.com/DoKca42/42_vscode_ft_count_line/blob/master/README.md"
+  }
+  

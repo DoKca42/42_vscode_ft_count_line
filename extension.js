@@ -1,5 +1,4 @@
 const vscode = require('vscode');
-const config = vscode.workspace.getConfiguration('42-ft-count-line');
 
 /**
  * normalizeLineEndings(txt)
@@ -130,6 +129,8 @@ function validateColorInput(color)
 
 function activate(ctx)
 {
+	const config = vscode.workspace.getConfiguration('42-ft-count-line');
+	
 	// Decoration for more than the limit number of lines (default red)
 	const redDecorationType = vscode.window.createTextEditorDecorationType({
         after: {
@@ -406,6 +407,7 @@ function activate(ctx)
 	 */
 	function applyDecorations(editor)
 	{
+		const config = vscode.workspace.getConfiguration('42-ft-count-line'); // get the configuration to avoid the need for reload
 		const document = editor.document;
 		let txt = normalizeLineEndings(document.getText());
 		let lines = txt.split(/\r\n|\r|\n/);
@@ -458,7 +460,8 @@ function activate(ctx)
 				const colorBelowMax = validateColorInput(config.get("colorBelowMax", "gray")) || "gray";
 				const colorAboveMax = validateColorInput(config.get("colorAboveMax", "red")) || "red"; 
 
-				if (size <= 25)
+				
+				if (size <= maxLines || maxLines == 0)
 					grayDecorations.push(createDecorationOptions(range, `—— 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ${size} ——`, colorBelowMax));
 				else
 					redDecorations.push(createDecorationOptions(range, `⚠⚠ 𝘍𝘜𝘕𝘊𝘛𝘐𝘖𝘕 𝘓𝘐𝘕𝘌𝘚 : ${size} ⚠⚠`, colorAboveMax));

@@ -26,6 +26,12 @@
 		"type": "object",
 		"title": "42 ft count line Settings",
 		"properties": {
+		  "42-ft-count-line.maxLines": {
+			"type": "integer",
+			"default": 25,
+			"minimum": 0,
+			"description": "The maximum allowed amount of lines. 0 will disable."
+        	},
 		  "42-ft-count-line.colorBelowMax": {
 			"type": "string",
 			"default": "gray",
